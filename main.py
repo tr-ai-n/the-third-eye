@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import playsound
+import imutils
 
 import os
 import random
@@ -16,6 +17,13 @@ from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
+
+from scipy.misc import imresize
+from keras.models import load_model
+
+# loading model
+print('[DEBUG] Loading model...')
+model = load_model('distracted_live_model_pose_phone_002.hdf5')
 
 # data
 main = {}
@@ -82,6 +90,7 @@ predictor = dlib.shape_predictor("3_d/shape_predictor_68_face_landmarks.dat")
 print("[DEBUG] starting video...")
 vs = VideoStream(0).start()
 time.sleep(1.0)
+
 
 score = 100
 ls = [] 
