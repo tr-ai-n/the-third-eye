@@ -13,22 +13,31 @@ import time
 import dlib
 import cv2
 
+
+
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
 from threading import Thread
 
-from scipy.misc import imresize
-from keras.models import load_model
+from face_rec import f_rec
 
+from scipy.misc import imresize
+#from keras.models import load_model
+import requests
+
+name = f_rec.return_known_name('face_rec/face/1.jpg')
 # loading model
 print('[DEBUG] Loading model...')
 model = load_model('distracted_live_model_pose_phone_002.hdf5')
 
-# data
+data
 main = {}
 details = {}
 
+# adding uid and name
+main['uid'] = 1
+main['name'] =  name
 # date format
 dt_ft = "%Y-%m-%d %H:%M:%S"
 
@@ -241,4 +250,10 @@ main['end_time'] = pd.to_datetime(datetime.datetime.now()).strftime(dt_ft)
 cv2.destroyAllWindows()
 vs.stop()
 
-print(json.dumps({'main' : main, 'details' : details}))
+final = json.dumps({'main' : main, 'details' : details})
+
+############################## POST request ###############################
+
+url = "https://www.third-eye.sandipbhuyan.com/api/set-event"
+r = requst.post(url = url, data=final)
+print(r.text)
