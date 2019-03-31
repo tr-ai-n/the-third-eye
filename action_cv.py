@@ -8,7 +8,7 @@ from keras.models import load_model
 
 # loading model
 print('[DEBUG] Loading model...')
-model = load_model('models/distracted_live_model_002.hdf5')
+model = load_model('distracted_live_model_pose_phone_002.hdf5')
 
 # start the video stream thread
 print("[DEBUG] starting video stream thread...")
@@ -16,10 +16,8 @@ cap = cv2.VideoCapture(0)
 time.sleep(1.0)
 
 # class dictionary
-CLASS_DICT = {0: 'good_pose',
- 1: 'look_back',
- 2: 'phone_call',
- 3: 'text_mobile'}
+CLASS_DICT = {  0: 'good_pose',
+                1: 'mobile_phone'}
 # target size
 TARGET_SIZE = (252, 336, 3)
 
